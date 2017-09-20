@@ -117,6 +117,14 @@ describe('logged in', () => {
       value: new LocalStorageMock({ name: 'Dan' })
     });
 
+    // Mock fetch
+    fetchMock.mock({
+      matcher: '/api/login',
+      response: {
+        name: 'Dan'
+      }
+    });
+
     // Mock Redux
     store = createStore(reducer, { name: null });
 
