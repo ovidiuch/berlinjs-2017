@@ -9,6 +9,7 @@
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.7",
     "enzyme": "^2.9.1",
+    "fetch-mock": "^5.12.2",
     "html-webpack-plugin": "^2.30.1",
     "jest": "^21.1.0",
     "react-cosmos-webpack": "^2.0.0-rc.1",

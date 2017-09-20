@@ -4,6 +4,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { Router, Route } from 'react-router';
 import createHistory from 'history/createMemoryHistory';
+import fetchMock from 'fetch-mock';
 import reducer from '../../../reducer';
 import RealLifeComponent from '../';
 
@@ -41,12 +42,12 @@ describe('guest', () => {
     });
 
     // Mock fetch
-    global.fetch = () =>
-      new Promise(resolve => {
-        resolve({
-          json: () => ({ name: 'Dan' })
-        });
-      });
+    fetchMock.mock({
+      matcher: '/api/login',
+      response: {
+        name: 'Dan'
+      }
+    });
 
     // Mock Redux
     const store = createStore(reducer, { name: null });
@@ -74,6 +75,11 @@ describe('guest', () => {
   describe('upon clicking on the login button', () => {
     beforeEach(() => {
       wrapper.find('button').simulate('click');
+
+      // Run pending micro tasks from async action
+      return new Promise(resolve => {
+        setImmediate(resolve);
+      });
     });
 
     test('renders greeting for logged in user', () => {
@@ -142,7 +148,7 @@ describe('logged in', () => {
     });
 
     test('removes logged in user from local storage', () => {
-      expect(localStorage.getItem('name')).toBe(null);
+      expect(localStorage.getItem('name')).toBeFalsy();
     });
 
     test('redirects to home URL', () => {
