@@ -2,27 +2,14 @@ import React from 'react';
 import { createContext } from '../../../__unreleased-react-cosmos-enzyme';
 import proxies from '../../../../cosmos.proxies';
 import RealLifeComponent from '../';
+import guestFixture from '../__fixtures__/guest';
+import loggedInFixture from '../__fixtures__/logged-in';
 
 describe('guest', () => {
   const { mount, getWrapper, getUrl, getLocalStorage } = createContext({
     proxies,
     component: RealLifeComponent,
-    fixture: {
-      props: {},
-      url: '/login',
-      localStorage: {},
-      reduxState: {
-        name: null
-      },
-      fetch: [
-        {
-          matcher: '/api/login',
-          response: {
-            name: 'Dan'
-          }
-        }
-      ]
-    }
+    fixture: guestFixture
   });
 
   beforeEach(mount);
@@ -77,16 +64,7 @@ describe('logged in', () => {
   const { mount, getWrapper, getUrl, getLocalStorage } = createContext({
     proxies,
     component: RealLifeComponent,
-    fixture: {
-      props: {},
-      url: '/',
-      localStorage: {
-        name: 'Dan'
-      },
-      reduxState: {
-        name: null
-      }
-    }
+    fixture: loggedInFixture
   });
 
   beforeEach(mount);
