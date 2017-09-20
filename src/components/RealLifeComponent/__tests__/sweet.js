@@ -24,9 +24,7 @@ describe('guest', () => {
 
   describe('upon clicking on the login button', () => {
     beforeEach(() => {
-      wrapper()
-        .find('button')
-        .simulate('click');
+      wrapper('button').simulate('click');
 
       // Run pending micro tasks from async action
       return new Promise(resolve => {
@@ -74,18 +72,12 @@ describe('logged in', () => {
   });
 
   test('renders logout button', () => {
-    expect(
-      wrapper()
-        .find('button')
-        .text()
-    ).toEqual('Logout');
+    expect(wrapper('button').text()).toEqual('Logout');
   });
 
   describe('upon clicking on the logout button', () => {
     beforeEach(() => {
-      wrapper()
-        .find('button')
-        .simulate('click');
+      wrapper('button').simulate('click');
     });
 
     test('asks user who they are', () => {
