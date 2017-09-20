@@ -6,7 +6,7 @@ import guestFixture from '../__fixtures__/guest';
 import loggedInFixture from '../__fixtures__/logged-in';
 
 describe('guest', () => {
-  const { mount, getWrapper, getUrl, getLocalStorage } = createContext({
+  const { mount, wrapper, reduxState, url, localStorage } = createContext({
     proxies,
     component: RealLifeComponent,
     fixture: guestFixture
@@ -15,12 +15,12 @@ describe('guest', () => {
   beforeEach(mount);
 
   test('asks user who they are', () => {
-    expect(getWrapper().text()).toContain('Wer bist du?');
+    expect(wrapper().text()).toContain('Wer bist du?');
   });
 
   test('renders login button', () => {
     expect(
-      getWrapper()
+      wrapper()
         .find('button')
         .text()
     ).toEqual('Login');
@@ -28,7 +28,7 @@ describe('guest', () => {
 
   describe('upon clicking on the login button', () => {
     beforeEach(() => {
-      getWrapper()
+      wrapper()
         .find('button')
         .simulate('click');
 
@@ -39,29 +39,33 @@ describe('guest', () => {
     });
 
     test('renders greeting for logged in user', () => {
-      expect(getWrapper().text()).toContain('Hallo Dan!');
+      expect(wrapper().text()).toContain('Hallo Dan!');
     });
 
     test('renders logout button', () => {
       expect(
-        getWrapper()
+        wrapper()
           .find('button')
           .text()
       ).toEqual('Logout');
     });
 
+    test('populates name in Redux state', () => {
+      expect(reduxState().name).toBe('Dan');
+    });
+
     test('caches logged in user in local storage', () => {
-      expect(getLocalStorage().name).toBe('Dan');
+      expect(localStorage().name).toBe('Dan');
     });
 
     test('redirects to home URL', () => {
-      expect(getUrl()).toBe('/');
+      expect(url()).toBe('/');
     });
   });
 });
 
 describe('logged in', () => {
-  const { mount, getWrapper, getUrl, getLocalStorage } = createContext({
+  const { mount, wrapper, reduxState, url, localStorage } = createContext({
     proxies,
     component: RealLifeComponent,
     fixture: loggedInFixture
@@ -70,12 +74,16 @@ describe('logged in', () => {
   beforeEach(mount);
 
   test('renders greeting for logged in user', () => {
-    expect(getWrapper().text()).toContain('Hallo Dan!');
+    expect(wrapper().text()).toContain('Hallo Dan!');
+  });
+
+  test('populates name in Redux state', () => {
+    expect(reduxState().name).toBe('Dan');
   });
 
   test('renders logout button', () => {
     expect(
-      getWrapper()
+      wrapper()
         .find('button')
         .text()
     ).toEqual('Logout');
@@ -83,29 +91,33 @@ describe('logged in', () => {
 
   describe('upon clicking on the logout button', () => {
     beforeEach(() => {
-      getWrapper()
+      wrapper()
         .find('button')
         .simulate('click');
     });
 
     test('asks user who they are', () => {
-      expect(getWrapper().text()).toContain('Wer bist du?');
+      expect(wrapper().text()).toContain('Wer bist du?');
     });
 
     test('renders login button', () => {
       expect(
-        getWrapper()
+        wrapper()
           .find('button')
           .text()
       ).toEqual('Login');
     });
 
+    test('removes name from Redux state', () => {
+      expect(reduxState().name).toBe(null);
+    });
+
     test('removes logged in user from local storage', () => {
-      expect(getLocalStorage().name).toBeFalsy();
+      expect(localStorage().name).toBeFalsy();
     });
 
     test('redirects to home URL', () => {
-      expect(getUrl()).toBe('/login');
+      expect(url()).toBe('/login');
     });
   });
 });

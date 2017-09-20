@@ -33,6 +33,7 @@ class LocalStorageMock {
 describe('guest', () => {
   let wrapper;
   let routerHistory;
+  let store;
 
   beforeEach(() => {
     // Mock localStorage
@@ -50,7 +51,7 @@ describe('guest', () => {
     });
 
     // Mock Redux
-    const store = createStore(reducer, { name: null });
+    store = createStore(reducer, { name: null });
 
     // Mock React Router
     routerHistory = createHistory({ initialEntries: ['/login'] });
@@ -90,6 +91,10 @@ describe('guest', () => {
       expect(wrapper.find('button').text()).toEqual('Logout');
     });
 
+    test('populates name in Redux state', () => {
+      expect(store.getState().name).toBe('Dan');
+    });
+
     test('caches logged in user in local storage', () => {
       expect(localStorage.getItem('name')).toBe('Dan');
     });
@@ -103,6 +108,7 @@ describe('guest', () => {
 describe('logged in', () => {
   let wrapper;
   let routerHistory;
+  let store;
 
   beforeEach(() => {
     // Mock localStorage
@@ -112,7 +118,7 @@ describe('logged in', () => {
     });
 
     // Mock Redux
-    const store = createStore(reducer, { name: null });
+    store = createStore(reducer, { name: null });
 
     // Mock React Router
     routerHistory = createHistory({ initialEntries: ['/'] });
@@ -130,6 +136,10 @@ describe('logged in', () => {
     expect(wrapper.text()).toContain('Hallo Dan!');
   });
 
+  test('populates name in Redux state', () => {
+    expect(store.getState().name).toBe('Dan');
+  });
+
   test('renders logout button', () => {
     expect(wrapper.find('button').text()).toEqual('Logout');
   });
@@ -145,6 +155,10 @@ describe('logged in', () => {
 
     test('renders login button', () => {
       expect(wrapper.find('button').text()).toEqual('Login');
+    });
+
+    test('removes name from Redux state', () => {
+      expect(store.getState().name).toBe(null);
     });
 
     test('removes logged in user from local storage', () => {
