@@ -20,7 +20,7 @@
   "dependencies": {
     "react": "^15.6.1",
     "react-cosmos-fetch-proxy": "^2.0.0-rc.1",
-    "react-cosmos-localstorage-proxy": "^2.0.0-rc.1",
+    "react-cosmos-localstorage-proxy": "^2.0.0-rc.2",
     "react-cosmos-redux-proxy": "^2.0.0-rc.1",
     "react-cosmos-router-proxy": "^2.0.0-rc.1",
     "react-dom": "^15.6.1",

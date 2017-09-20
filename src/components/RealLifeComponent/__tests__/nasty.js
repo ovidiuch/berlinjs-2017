@@ -9,8 +9,8 @@ import reducer from '../../../reducer';
 import RealLifeComponent from '../';
 
 class LocalStorageMock {
-  constructor(store) {
-    this.store = store;
+  constructor(store = {}) {
+    this.store = { ...store };
   }
 
   clear() {
@@ -38,7 +38,7 @@ describe('guest', () => {
     // Mock localStorage
     Object.defineProperty(global, 'localStorage', {
       writable: true,
-      value: new LocalStorageMock({})
+      value: new LocalStorageMock()
     });
 
     // Mock fetch

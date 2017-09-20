@@ -4102,9 +4102,9 @@ react-cosmos-loader@^2.0.0-rc.1:
     react-cosmos-state-proxy "^2.0.0-rc.1"
     react-cosmos-utils "^2.0.0-rc.1"
 
-react-cosmos-localstorage-proxy@^2.0.0-rc.1:
-  version "2.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/react-cosmos-localstorage-proxy/-/react-cosmos-localstorage-proxy-2.0.0-rc.1.tgz#375826aef7277b4d6f7d4915e789b4b37cded4a3"
+react-cosmos-localstorage-proxy@^2.0.0-rc.2:
+  version "2.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/react-cosmos-localstorage-proxy/-/react-cosmos-localstorage-proxy-2.0.0-rc.2.tgz#b1ef49c24f2f8df898f07fe161f08dcd3d57aa3d"
   dependencies:
     react-cosmos-utils "^2.0.0-rc.1"
 
