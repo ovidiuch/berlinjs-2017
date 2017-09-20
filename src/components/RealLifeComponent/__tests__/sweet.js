@@ -1,9 +1,9 @@
 import React from 'react';
 import { createContext } from '../../../__unreleased-react-cosmos-enzyme';
 import proxies from '../../../../cosmos.proxies';
-import RealLifeComponent from '../';
 import guestFixture from '../__fixtures__/guest';
 import loggedInFixture from '../__fixtures__/logged-in';
+import RealLifeComponent from '../';
 
 describe('guest', () => {
   const { mount, wrapper, reduxState, url, localStorage } = createContext({
