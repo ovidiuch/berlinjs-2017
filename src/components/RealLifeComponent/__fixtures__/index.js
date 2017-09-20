@@ -1,10 +1,13 @@
 export default {
   props: {},
-  reduxState: {},
+  url: '/login',
   localStorage: {},
+  reduxState: {
+    name: null
+  },
   fetch: [
     {
-      matcher: '/login',
+      matcher: '/api/login',
       response: {
         name: 'Dan'
       }

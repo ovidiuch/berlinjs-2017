@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 class MonsterComponent extends Component {
   componentDidMount() {
@@ -10,14 +11,16 @@ class MonsterComponent extends Component {
   }
 
   onLogin = async () => {
-    const { name } = await fetch('/login').then(res => res.json());
+    const { name } = await fetch('/api/login').then(res => res.json());
     this.props.setName(name);
     localStorage.setItem('name', name);
+    this.props.history.push('/');
   };
 
   onLogout = () => {
-    this.props.setName(name);
+    this.props.setName(null);
     localStorage.removeItem('name');
+    this.props.history.push('/login');
   };
 
   render() {
@@ -44,4 +47,6 @@ const mapDispatchToProps = dispatch => ({
   setName: name => dispatch({ type: 'SET_NAME', name })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MonsterComponent);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(MonsterComponent)
+);
