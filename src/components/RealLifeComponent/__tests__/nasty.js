@@ -51,7 +51,7 @@ describe('guest', () => {
     });
 
     // Mock Redux
-    store = createStore(reducer, { name: null });
+    store = createStore(reducer);
 
     // Mock React Router
     routerHistory = createHistory({ initialEntries: ['/login'] });
@@ -126,7 +126,7 @@ describe('logged in', () => {
     });
 
     // Mock Redux
-    store = createStore(reducer, { name: null });
+    store = createStore(reducer);
 
     // Mock React Router
     routerHistory = createHistory({ initialEntries: ['/'] });

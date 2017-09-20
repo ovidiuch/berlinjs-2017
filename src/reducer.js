@@ -1,4 +1,6 @@
-export default (state = {}, action) => {
+const initialState = { name: null };
+
+export default (state = initialState, action) => {
   if (action.type === 'SET_NAME') {
     return {
       ...state,

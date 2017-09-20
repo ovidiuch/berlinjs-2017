@@ -4,9 +4,6 @@ export default {
   localStorage: {
     name: 'Dan'
   },
-  reduxState: {
-    name: null
-  },
   fetch: [
     {
       matcher: '/api/login',
