@@ -19,11 +19,7 @@ describe('guest', () => {
   });
 
   test('renders login button', () => {
-    expect(
-      wrapper()
-        .find('button')
-        .text()
-    ).toEqual('Login');
+    expect(wrapper('button').text()).toEqual('Login');
   });
 
   describe('upon clicking on the login button', () => {
@@ -43,11 +39,7 @@ describe('guest', () => {
     });
 
     test('renders logout button', () => {
-      expect(
-        wrapper()
-          .find('button')
-          .text()
-      ).toEqual('Logout');
+      expect(wrapper('button').text()).toEqual('Logout');
     });
 
     test('populates name in Redux state', () => {
@@ -101,11 +93,7 @@ describe('logged in', () => {
     });
 
     test('renders login button', () => {
-      expect(
-        wrapper()
-          .find('button')
-          .text()
-      ).toEqual('Login');
+      expect(wrapper('button').text()).toEqual('Login');
     });
 
     test('removes name from Redux state', () => {

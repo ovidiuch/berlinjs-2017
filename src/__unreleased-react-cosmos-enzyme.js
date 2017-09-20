@@ -45,7 +45,7 @@ export const createContext = ({ proxies, component, fixture }) => {
   return {
     mount,
     unmount: () => rootWrapper.unmount(),
-    wrapper: () => wrapper,
+    wrapper: selector => (selector ? wrapper.find(selector) : wrapper),
     reduxState: () => state.reduxState,
     url: () => state.url,
     localStorage: () => state.localStorage
