@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-class MonsterComponent extends Component {
+class RealLifeComponent extends Component {
   componentDidMount() {
     const cachedName = localStorage.getItem('name');
     if (cachedName) {
@@ -48,5 +48,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(MonsterComponent)
+  connect(mapStateToProps, mapDispatchToProps)(RealLifeComponent)
 );

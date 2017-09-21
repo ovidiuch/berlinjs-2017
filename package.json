@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "test": "jest src --coverage",
+    "test:watch": "jest src --watch"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.0",

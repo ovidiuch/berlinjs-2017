@@ -9,8 +9,7 @@ export default [
   createFetchProxy(),
   createLocalStorageProxy(),
   createReduxProxy({
-    createStore: state => createStore(reducer, state),
-    alwaysCreateStore: true
+    createStore: state => createStore(reducer, state)
   }),
   createRouterProxy()
 ];
