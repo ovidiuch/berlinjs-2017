@@ -31,16 +31,17 @@ export default class Presentation extends Component {
 
   componentDidMount() {
     window.addEventListener(KEY_EVENT, this.onKeyPress);
+    window.addEventListener('resize', this.calcSlides);
 
-    // TODO: Redo on resize
     this.calcSlides();
   }
 
   componentWillUnmount() {
     window.removeEventListener(KEY_EVENT, this.onKeyPress);
+    window.addEventListener('resize', this.calcSlides);
   }
 
-  calcSlides() {
+  calcSlides = () => {
     this.slides = [];
     let nextRef = getSlideRef(this.refs, 0);
 
@@ -56,7 +57,7 @@ export default class Presentation extends Component {
     this.setState({
       slide: this.slides.length - 1
     });
-  }
+  };
 
   prev() {
     this.setState(({ slide }) => ({
@@ -106,14 +107,15 @@ export default class Presentation extends Component {
 
   renderSlide = (slide, index) => {
     return (
-      <div className={getSlideClass(index, this.state.slide)} ref={`s${index}`}>
+      <div
+        key={index}
+        className={getSlideClass(index, this.state.slide)}
+        ref={`s${index}`}
+      >
         {slide}
         <style jsx>{`
           .slide {
-            margin: 30px;
-            color: #fff;
-            font-size: 3.6vw;
-            font-weight: 300;
+            margin: 5vw;
             transition: opacity 0.5s;
           }
           .s0 {
@@ -216,6 +218,71 @@ export default class Presentation extends Component {
             </div>,
             <div>
               The <em>ugly truth</em> about components... 🙊
+            </div>,
+            <div>Cosmos 2.0.0-rc</div>,
+            <div>
+              Easier to integrate:{' '}
+              <em>
+                Create React App, Next.js, React Boilerplate, React Redux
+                Starter Kit
+              </em>
+            </div>,
+            <div>Better docs</div>,
+            <div>
+              Built-in plugins:{' '}
+              <em>
+                Context, Redux, React Router, Apollo, XHR, Fetch, localStorage
+              </em>
+            </div>,
+            <div>Static explorting (no web server needed)</div>,
+            <div>Refactoring & architecture roadmap</div>,
+            <div>
+              Quick Cosmos intro: <strong>fixtures</strong> and{' '}
+              <strong>proxies</strong>
+            </div>,
+            <div>
+              <pre>{`{
+  props: {
+    name: 'Dan'
+  }
+}`}</pre>
+            </div>,
+            <div>
+              <pre>{`{
+  state: {
+    isLoading: true
+  }
+}`}</pre>
+            </div>,
+            <div>
+              <pre>{`{
+  reduxState: {
+    user: {
+      name: 'Dan'
+    }
+  }
+}`}</pre>
+            </div>,
+            <div>
+              <pre>{`{
+  url: '/user/13',
+  route: '/user/:userId'
+}`}</pre>
+            </div>,
+            <div>
+              <pre>{`{
+  localStorage: {
+    token: 'foobartoken'
+  }
+}`}</pre>
+            </div>,
+            <div>
+              The <strike>sky</strike> cosmos is the limit, proxies are fixture{' '}
+              <em>plugins</em>
+            </div>,
+            <div>Test helpers 🥁</div>,
+            <div>
+              Beyond UI exploring: <strong>Context mocking</strong>
             </div>
           ])}
         </div>
@@ -229,6 +296,10 @@ export default class Presentation extends Component {
           .content {
             position: absolute;
             top: 50%;
+            color: #fff;
+            font-size: 3.6vw;
+            font-weight: 300;
+            line-height: 5vw;
             transition: transform 0.5s;
           }
           ul,
@@ -238,6 +309,9 @@ export default class Presentation extends Component {
           }
           li {
             margin: 10px 0;
+          }
+          pre {
+            margin: 0 0 0 5vw;
           }
           .root {
             position: absolute;
