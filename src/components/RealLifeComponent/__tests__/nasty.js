@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { Router, Route } from 'react-router';
+import { Router } from 'react-router';
 import createHistory from 'history/createMemoryHistory';
 import fetchMock from 'fetch-mock';
 import reducer from '../../../reducer';

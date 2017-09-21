@@ -1,4 +1,3 @@
-import React from 'react';
 import { createContext } from '../../../__unreleased-react-cosmos-enzyme';
 import proxies from '../../../../cosmos.proxies';
 import guestFixture from '../__fixtures__/guest';
