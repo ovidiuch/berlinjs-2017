@@ -9,7 +9,7 @@ const PAGE_UP = 33;
 const PAGE_DOWN = 34;
 
 // Use `keydown` for debugging and `keyup` when presenting!
-const KEY_EVENT = 'keydown';
+const KEY_EVENT = 'keyup';
 
 // How much time (ms) to keep mouse pressed to go back instead of forward
 const GO_BACK_TIMEOUT = 300;
@@ -38,7 +38,7 @@ export default class Presentation extends Component {
 
   componentWillUnmount() {
     window.removeEventListener(KEY_EVENT, this.onKeyPress);
-    window.addEventListener('resize', this.calcSlides);
+    window.removeEventListener('resize', this.calcSlides);
   }
 
   calcSlides = () => {
@@ -53,10 +53,11 @@ export default class Presentation extends Component {
       nextRef = getSlideRef(this.refs, this.slides.length);
     }
 
-    // this.forceUpdate();
-    this.setState({
-      slide: this.slides.length - 1
-    });
+    this.forceUpdate();
+    // Use this when adding slides
+    // this.setState({
+    //   slide: this.slides.length - 1
+    // });
   };
 
   prev() {
@@ -192,7 +193,6 @@ export default class Presentation extends Component {
             <div>
               <em>Everything</em> is a component.
             </div>,
-            <div>Mission: Fight creeping complexity in UIs</div>,
             <div>
               <code>component = f(props, state)</code> is a lie!
             </div>,
@@ -219,23 +219,6 @@ export default class Presentation extends Component {
             <div>
               The <em>ugly truth</em> about components... 🙊
             </div>,
-            <div>Cosmos 2.0.0-rc</div>,
-            <div>
-              Easier to integrate:{' '}
-              <em>
-                Create React App, Next.js, React Boilerplate, React Redux
-                Starter Kit
-              </em>
-            </div>,
-            <div>Better docs</div>,
-            <div>
-              Built-in plugins:{' '}
-              <em>
-                Context, Redux, React Router, Apollo, XHR, Fetch, localStorage
-              </em>
-            </div>,
-            <div>Static explorting (no web server needed)</div>,
-            <div>Refactoring & architecture roadmap</div>,
             <div>
               Quick Cosmos intro: <strong>fixtures</strong> and{' '}
               <strong>proxies</strong>
@@ -280,9 +263,154 @@ export default class Presentation extends Component {
               The <strike>sky</strike> cosmos is the limit, proxies are fixture{' '}
               <em>plugins</em>
             </div>,
-            <div>Test helpers 🥁</div>,
+            <div>Cosmos 2.0</div>,
+            <div>
+              Easier to integrate:{' '}
+              <em>
+                Create React App, Next.js, React Boilerplate, React Redux
+                Starter Kit
+              </em>
+            </div>,
+            <div>Better docs</div>,
+            <div>
+              Built-in plugins:{' '}
+              <em>
+                Context, Redux, React Router, Apollo, XHR, Fetch, localStorage
+              </em>
+            </div>,
+            <div>Static explorting (no web server needed)</div>,
+            <div>Refactoring & architecture roadmap</div>,
+            <div>
+              Next: <strong>Test helpers</strong> 🥁
+            </div>,
+            <div>Testing UI components is H A R D</div>,
+            <div>
+              <div>
+                <em>How friends think my tests look like...</em>
+              </div>
+              <pre className="small">{`
+const onReply = jest.fn();
+const wrapper = shallow(
+  <UnrealisticDumbComponent onReply={onReply} />);
+
+expect(wrapper.text()).toBe('Alles gut?');
+
+wrapper.find('button').simulate('click');
+expect(onReply).toHaveBeenCalledWith('Ja');`}</pre>
+            </div>,
+            <div>
+              <em>How my tests actually look like...</em>
+              <pre className="tiny">{`
+// Mock localStorage
+Object.defineProperty(global, 'localStorage', {
+  writable: true,
+  value: new LocalStorageMock({ name: 'Dan' })
+});
+
+// Mock fetch
+fetchMock.mock({
+  matcher: '/api/login',
+  response: {
+    name: 'Dan'
+  }
+});
+
+// Mock Redux
+const store = createStore(reducer);
+
+// Mock React Router
+const routerHistory = createHistory({ initialEntries: ['/'] });
+
+const wrapper = mount(
+  <Router history={routerHistory}>
+    <Provider store={store}>
+      <RealLifeComponent />
+    </Provider>
+  </Router>);
+
+expect(wrapper.text()).toContain('Hallo Dan!');`}</pre>
+            </div>,
+            <div>The test setup is the most annoying</div>,
+            <div>
+              <em>
+                if only we could easily simulate component states by mocking all
+                dependencies...
+              </em>{' '}
+              🤔
+            </div>,
             <div>
               Beyond UI exploring: <strong>Context mocking</strong>
+            </div>,
+            <div>
+              <pre className="small">{`
+const { mount, wrapper, reduxState, url } = createContext({
+  proxies,
+  component: RealLifeComponent,
+  fixture
+});
+
+mount();
+
+expect(wrapper().text()).toContain('Hallo Dan!');
+expect(reduxState().name).toBe('Dan');
+expect(url()).toBe('/');`}</pre>
+            </div>,
+            <div>
+              <pre className="small">{`{
+  url: '/login',
+  localStorage: {
+    name: 'Dan'
+  },
+  reduxState: {},
+  fetch: [
+    {
+      matcher: '/api/login',
+      response: {
+        name: 'Dan'
+      }
+    }
+  ]
+}`}</pre>
+            </div>,
+            <div>
+              Cosmos tests vs (pure) unit tests
+              <ul>
+                <li>More coverage per test</li>
+                <li>Test user facing logic</li>
+                <li>Less test changes per refactor</li>
+              </ul>
+            </div>,
+            <div>
+              Cosmos tests vs E2E tests
+              <ul>
+                <li>Write and run as easy as unit tests</li>
+                <li>Test isolated components vs global app</li>
+                <li>Lib mocking (eg Redux)</li>
+              </ul>
+            </div>,
+            <div>Please help test Cosmos 2.0 release candidate!</div>,
+            <div>
+              <code>createContext</code> API soon. Stay tunned!
+            </div>,
+            <div>
+              <strong>Thanks!</strong>
+              <ul>
+                <li>
+                  <a target="_top" href="https://twitter.com/skidding">
+                    twitter.com/<strong>skidding</strong>
+                  </a>
+                </li>
+                <li>
+                  <a target="_top" href="https://github.com/skidding">
+                    github.com/<strong>skidding</strong>
+                  </a>
+                </li>
+                <li>
+                  <a target="_top" href="https://github.com/react-cosmos">
+                    github.com/<strong>react-cosmos</strong>
+                  </a>
+                </li>
+              </ul>
             </div>
           ])}
         </div>
@@ -299,7 +427,7 @@ export default class Presentation extends Component {
             color: #fff;
             font-size: 3.6vw;
             font-weight: 300;
-            line-height: 5vw;
+            line-height: 4.8vw;
             transition: transform 0.5s;
           }
           ul,
@@ -312,6 +440,17 @@ export default class Presentation extends Component {
           }
           pre {
             margin: 0 0 0 5vw;
+          }
+          a {
+            color: #358682;
+          }
+          .small {
+            font-size: 2vw;
+            line-height: 3vw;
+          }
+          .tiny {
+            font-size: 1vw;
+            line-height: 1.5vw;
           }
           .root {
             position: absolute;

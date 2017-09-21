@@ -1,5 +1,4 @@
 export default {
-  props: {},
   url: '/login',
   localStorage: {},
   reduxState: {},

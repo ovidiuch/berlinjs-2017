@@ -1,5 +1,4 @@
 export default {
-  props: {},
   url: '/',
   localStorage: {
     name: 'Dan'
