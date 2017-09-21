@@ -3,6 +3,7 @@
   "plugins": [
     "transform-object-rest-spread",
     "transform-class-properties",
-    "transform-async-to-generator"
+    "transform-async-to-generator",
+    "styled-jsx/babel"
   ]
 }
