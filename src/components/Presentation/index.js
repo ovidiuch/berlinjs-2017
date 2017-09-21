@@ -273,7 +273,7 @@ export default class Presentation extends Component {
             </div>,
             <div>Better docs</div>,
             <div>
-              Built-in plugins:{' '}
+              Built-in proxies:{' '}
               <em>
                 Context, Redux, React Router, Apollo, XHR, Fetch, localStorage
               </em>
