@@ -2,7 +2,8 @@
   "scripts": {
     "lint": "eslint src",
     "test": "jest src --coverage",
-    "test:watch": "jest src --watch"
+    "test:watch": "jest src --watch",
+    "export": "cosmos-export"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.0",
